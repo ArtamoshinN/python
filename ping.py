@@ -1,0 +1,6 @@
+num = input()
+print('   _~_    ' * int(num))
+print('  (o o)   ' * int(num))
+print(' /  V  \  ' * int(num))
+print('/(  _  )\ ' * int(num))
+print('  ^^ ^^   ' * int(num))
