@@ -1,0 +1,5 @@
+x = float(input())
+x = round(x * 100)
+y1 = str(x % 100 // 10)
+y2 = str(x % 10)
+print(x // 100, y1 + y2)
