@@ -4,22 +4,32 @@ m = int(input())
 b = list(map(int, input().split()))
 for i in range(m):
     b[i] = [i + 1, b[i]]
-for i in range(n):
-    a[i] = [i + 1, a[i]]
 b.sort(key=lambda x: x[1])
-j = 0
-for elem in a:
-    if elem[1] < b[0][1]:
-        elem = [b[0][0], elem[1]]
-    if elem[1] > b[-1][1]:
-        elem = [b[-1][0], elem[1]]
-        m -= 1
-    while elem[1] > b[j][1] and j < m:
-        if abs(b[j][1] - elem[1]) >= abs(b[j + 1][1] - elem[1]):
-            elem = [b[j + 1][0], elem[1]]
-            j += 1
+m -= 1
+
+
+def search(b, elem):
+    k = int((len(b) - 1) / 2)
+    i = k
+    if elem <= b[0][1]:
+        return b[0][0]
+    elif elem >= b[len(b) - 1][1]:
+        return b[len(b) - 1][0]
+    while not (b[k][1] <= elem <= b[k + 1][1]):
+        if elem < b[k][1]:
+            k = k - int(i / 2)
+            i /= 2
+        elif elem > b[k][1]:
+            k = k + int(i / 2)
+            i /= 2
         else:
-            elem = [b[j][0], elem[1]]
-            j += 1
-    j = 0
-    print(elem[0], end=' ')
+            return b[k][0]
+    if elem != b[k][1]:
+        if abs(b[k][1] - elem) < abs(b[k + 1][1] - elem):
+            return b[k][0]
+        else:
+            return b[k + 1][0]
+    else:
+        return b[k][0]
+for elem in a:
+    print(*[search(b, elem)], end=' ')
